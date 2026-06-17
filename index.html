@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 9: The World of News - Class 15 Finale</title>
+    <style>
+        /* Defining Custom Design System & Variables... */
+        :root {
+            /* Color Palette */
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --slate-50: #f8fafc;
+            
+            --blue-600: #2563eb;
+            --blue-500: #3b82f6;
+            --blue-100: #dbeafe;
+            
+            --emerald-600: #059669;
+            --emerald-500: #10b981;
+            --emerald-400: #34d399;
+            --emerald-100: #d1fae5;
+            
+            --amber-500: #f59e0b;
+            --amber-400: #fbbf24;
+            --amber-100: #fef3c7;
+
+            --coral-600: #e11d48;
+            --coral-500: #f43f5e;
+            --coral-100: #ffe4e6;
+
+            --purple-600: #7c3aed;
+            --purple-500: #8b5cf6;
+            --purple-100: #ede9fe;
+            
+            --text-main: #334155;
+            --text-light: #64748b;
+            
+            /* Spacing & Borders */
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            
+            /* Typography */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--slate-100);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Styling the Header & Layout... */
+        header {
+            background: linear-gradient(135deg, var(--slate-900), var(--purple-600));
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 5px solid var(--amber-400);
+        }
+
+        .header-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .header-title .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 0.25rem 1rem;
+            border-radius: 99px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tab-nav-container {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tab-btn {
+            background: var(--slate-100);
+            border: 1px solid var(--slate-200);
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-weight: 600;
+            color: var(--slate-600);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .tab-btn:hover { background: var(--slate-200); }
+        .tab-btn.active {
+            background: var(--purple-600);
+            color: white;
+            border-color: var(--purple-600);
+            box-shadow: var(--shadow-md);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            color: var(--slate-900);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--slate-100);
+        }
+
+        /* Styling Buttons & Links... */
+        .btn-primary {
+            background: var(--blue-600);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            justify-content: center;
+        }
+        .btn-primary:hover { background: var(--blue-500); }
+
+        .btn-action {
+            background: var(--purple-600);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+            box-shadow: var(--shadow-md);
+        }
+        .btn-action:active { transform: scale(0.98); }
+        .btn-action:hover { background: var(--purple-500); }
+
+        .external-link-card {
+            background: linear-gradient(135deg, var(--slate-900), var(--slate-800));
+            color: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            margin: 2rem 0;
+            border: 1px solid var(--slate-700);
+        }
+        
+        .external-link-card h3 {
+            color: var(--amber-400);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Styling Specific Game Elements... */
+        .level-badge {
+            display: inline-block;
+            background: var(--slate-800);
+            color: var(--amber-400);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .teleprompter-screen {
+            background: black;
+            color: white;
+            font-family: monospace;
+            font-size: 1.5rem;
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 4px solid var(--slate-700);
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .scrolling-text {
+            position: absolute;
+            width: 90%;
+            bottom: -50%;
+            animation: teleprompterScroll 12s linear forwards;
+        }
+
+        @keyframes teleprompterScroll {
+            0% { transform: translateY(150px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+
+        .quiz-grid { display: grid; gap: 1rem; }
+        .quiz-item { 
+            display: grid; 
+            grid-template-columns: auto 1fr auto; 
+            align-items: center; 
+            gap: 1rem; 
+            background: var(--slate-50); 
+            padding: 1rem; 
+            border-radius: var(--radius-sm); 
+            border: 1px solid var(--slate-200); 
+        }
+        .quiz-item select, .quiz-item input { 
+            padding: 0.5rem; 
+            border: 1px solid var(--slate-300); 
+            border-radius: var(--radius-sm); 
+            font-family: inherit; 
+        }
+
+        .feedback-banner {
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin-top: 1rem;
+            font-weight: 600;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        .feedback-banner.success { display: block; background: var(--emerald-100); color: var(--emerald-600); border: 1px solid var(--emerald-500); }
+        .feedback-banner.error { display: block; background: var(--coral-100); color: var(--coral-600); border: 1px solid var(--coral-600); }
+
+        .celebration-banner {
+            background: linear-gradient(135deg, var(--slate-900), var(--purple-600));
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border-top: 8px solid var(--amber-400);
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Rendering Header & Navigation... -->
+    <header>
+        <div class="header-container">
+            <div class="header-title">
+                <span class="badge">Level: Pre-Independent 3</span>
+                <h1>Course Finale! 🎉</h1>
+                <p>Class 15 — Wrap Up & Pronunciation Lab</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="tab-nav-container">
+        <nav class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('tab1')">1. Broadcaster Bootcamp</button>
+            <button class="tab-btn" onclick="switchTab('tab2')">2. The Grand Review</button>
+            <button class="tab-btn" onclick="switchTab('tab3')">3. AI Speaking Test</button>
+            <button class="tab-btn" onclick="switchTab('tab4')">4. Pronunciation Lab</button>
+            <button class="tab-btn" onclick="switchTab('tab5')" style="background: var(--amber-100); color: var(--amber-800); font-weight: bold; border-color: var(--amber-400);">5. Celebration</button>
+        </nav>
+    </div>
+
+    <!-- Rendering Tab 1 - 3-Level Warm Up... -->
+    <main>
+        <section id="tab1" class="tab-content active">
+            <div class="card">
+                <h2 class="section-title">🎙️ Broadcaster Bootcamp</h2>
+                <p style="margin-bottom: 2rem; font-size: 1.05rem;">Welcome to the final class! Before we hit the AI labs, we need to warm up your vocal cords. Can you survive the 3 levels of Broadcaster Bootcamp?</p>
+
+                <!-- LEVEL 1 -->
+                <div style="background: var(--slate-50); border: 1px solid var(--slate-200); padding: 2rem; border-radius: var(--radius-md); margin-bottom: 2rem;">
+                    <span class="level-badge">Level 1: The Teleprompter</span>
+                    <p style="margin-bottom: 1rem;">Click "Start Feed" and read the scrolling text aloud to your partner. Do not stumble over the tricky sounds! You have 15 seconds per script.</p>
+                    
+                    <div class="teleprompter-screen" id="teleprompter-text">
+                        [ STANDBY FOR SCRIPT ]
+                    </div>
+                    <div style="text-align: center;">
+                        <button class="btn-action" onclick="runTeleprompter()">▶ Start Feed</button>
+                    </div>
+                </div>
+
+                <!-- LEVEL 2 -->
+                <div style="background: var(--slate-50); border: 1px solid var(--slate-200); padding: 2rem; border-radius: var(--radius-md); margin-bottom: 2rem;">
+                    <span class="level-badge" style="background: var(--blue-800); color: var(--blue-200);">Level 2: The Glitchy Feed</span>
+                    <p style="margin-bottom: 1rem;">The script is breaking down! Read these sentences out loud to your partner by guessing the missing vowels instantly. Do not pause!</p>
+                    
+                    <div style="background: var(--blue-50); padding: 1.5rem; border-left: 4px solid var(--blue-500); font-family: monospace; font-size: 1.2rem; line-height: 2;">
+                        1. Th_ m_y_r said th_re is t_o m_ch tr_ff_c in the c_ty c_nt_r.<br>
+                        2. I d_n't b_l_eve that st_ry, it m_st b_ f_k_ n_ws.<br>
+                        3. A f_r_ign c_rr_sp_nd_nt n_eds to b_ v_ry br_ve.
+                    </div>
+                </div>
+
+                <!-- LEVEL 3 -->
+                <div style="background: var(--slate-50); border: 1px solid var(--slate-200); padding: 2rem; border-radius: var(--radius-md);">
+                    <span class="level-badge" style="background: var(--coral-800); color: var(--coral-200);">Level 3: Live from the Scene</span>
+                    <p style="margin-bottom: 1rem;">You are live on TV! Click the button to get a random breaking news scenario. You must speak continuously for 30 seconds as the reporter. No stopping!</p>
+                    
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <h3 id="breaking-news-scenario" style="color: var(--coral-600); font-size: 1.4rem; height: 60px; display: flex; align-items: center; justify-content: center; font-style: italic;">"Waiting for assignment..."</h3>
+                        <button class="btn-primary" style="background: var(--coral-600);" onclick="generateBreakingNews()">📡 Get Breaking News</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rendering Tab 2 - Grand Review... -->
+        <section id="tab2" class="tab-content">
+            <div class="card">
+                <h2 class="section-title">🧠 Escape the Newsroom: Grand Review</h2>
+                <p style="margin-bottom: 1.5rem;">To finish Pre-Independent 3, you must prove your mastery of Modals of Deduction (must/might/can't), Modifiers (so/such/too/enough), and Journalism Vocabulary.</p>
+
+                <div class="quiz-grid" id="grand-review-quiz" style="grid-template-columns: 1fr 1fr;">
+                    <!-- JS will populate 15 items here -->
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-action" style="background: var(--emerald-600);" onclick="checkGrandReview()">Submit Final Review</button>
+                    <div id="review-feedback" class="feedback-banner"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rendering Tab 3 - AI Speaking Test... -->
+        <section id="tab3" class="tab-content">
+            <div class="card">
+                <h2 class="section-title">🤖 AI Speaking Assessment</h2>
+                <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">It's time to see how much your fluency has improved. You will use an Artificial Intelligence tool to evaluate your speaking skills.</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div>
+                        <div style="background: var(--slate-50); border: 1px solid var(--slate-200); padding: 1.5rem; border-radius: var(--radius-md);">
+                            <h4 style="color: var(--blue-600); margin-bottom: 1rem;">🛡️ Testing Survival Guide</h4>
+                            <ul style="list-style: none; font-size: 0.9rem; line-height: 1.6; color: var(--slate-700);">
+                                <li style="margin-bottom: 0.5rem;"><strong>1. Check Mic:</strong> Ensure you are in a quiet room.</li>
+                                <li style="margin-bottom: 0.5rem;"><strong>2. Normal Pace:</strong> Don't try to speak artificially fast. Speak at a comfortable, steady rhythm.</li>
+                                <li style="margin-bottom: 0.5rem;"><strong>3. Don't Over-Enunciate:</strong> English links words together (e.g., "cup of tea" sounds like "cuppa tea"). Don't pause between every single word!</li>
+                                <li><strong>4. Breathe:</strong> It's just a machine. Relax!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="external-link-card" style="margin: 0; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(135deg, var(--blue-900), var(--blue-800)); border-color: var(--blue-600);">
+                            <h3 style="color: white;">SpeechAce Speaking Test</h3>
+                            <p style="margin-bottom: 2rem; color: var(--blue-100);">Click the button below to launch the external AI speaking assessment.</p>
+                            <a href="https://www.speechace.com/speaking-test/" target="_blank" class="btn-action" style="background: white; color: var(--blue-900); text-decoration: none; display: inline-block;">Launch AI Test ➔</a>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="margin: 3rem 0; border: none; border-top: 1px solid var(--slate-200);">
+
+                <h3 style="margin-bottom: 1rem;">Post-Test Reflection</h3>
+                <div style="background: var(--slate-50); padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--slate-200);">
+                    <p style="margin-bottom: 0.5rem; font-weight: bold;">What score band did the AI estimate for you?</p>
+                    <select style="padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--slate-300); width: 100%; max-width: 300px; margin-bottom: 1.5rem;">
+                        <option>A2 (Elementary)</option>
+                        <option>B1 (Intermediate)</option>
+                        <option>B2 (Upper Intermediate)</option>
+                        <option>C1 (Advanced)</option>
+                    </select>
+                    
+                    <p style="margin-bottom: 0.5rem; font-weight: bold;">Which section felt the most challenging?</p>
+                    <input type="text" placeholder="e.g., Reading the long sentences clearly..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--slate-300); border-radius: var(--radius-sm);">
+                </div>
+            </div>
+        </section>
+
+        <!-- Rendering Tab 4 - Pronunciation Lab... -->
+        <section id="tab4" class="tab-content">
+            <div class="card">
+                <h2 class="section-title">🗣️ The Pronunciation Lab</h2>
+                <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">Now that you have your baseline score, let's target specific sounds. The SpeechAce Placement tool provides excellent drills to improve your accent and clarity.</p>
+
+                <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 1.5rem; border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: 2rem;">
+                    <h4 style="color: #b45309; margin-bottom: 0.5rem;">🎯 Phonetics Focus for Today</h4>
+                    <p style="color: var(--slate-800); font-size: 0.95rem;">While completing the activities on the site, focus heavily on:</p>
+                    <ul style="margin-left: 1.5rem; font-size: 0.95rem; color: var(--slate-700); line-height: 1.6; margin-top: 0.5rem;">
+                        <li><strong>Word Stress:</strong> Hitting the correct syllable (e.g., pho-TOG-ra-pher, not PHO-to-graph-er).</li>
+                        <li><strong>Linked Speech:</strong> Connecting consonants to vowels (e.g., "Look at it" sounds like "Loo-ka-tit").</li>
+                    </ul>
+                </div>
+
+                <div class="external-link-card" style="background: linear-gradient(135deg, var(--emerald-900), var(--emerald-800)); border-color: var(--emerald-600);">
+                    <h3 style="color: white;">SpeechAce Placement & Drills</h3>
+                    <p style="margin-bottom: 2rem; color: var(--emerald-100);">Complete the pronunciation activities on this page individually.</p>
+                    <a href="https://app.speechace.co/placement/" target="_blank" class="btn-action" style="background: white; color: var(--emerald-900); text-decoration: none; display: inline-block;">Enter Pronunciation Lab ➔</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rendering Tab 5 - Celebration Wrap Up... -->
+        <section id="tab5" class="tab-content">
+            <div class="celebration-banner">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">🎓 🎊 🏆</div>
+                <h2 style="font-size: 3rem; margin-bottom: 1rem;">Course Completed!</h2>
+                <p style="font-size: 1.25rem; max-width: 700px; margin: 0 auto 2rem auto; color: var(--purple-100);">
+                    Congratulations! You have successfully finished the Pre-Independent 3 level. You mastered complex modals, learned to navigate the world of news, and improved your conversational fluency.
+                </p>
+                
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: var(--radius-md); max-width: 600px; margin: 0 auto; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2);">
+                    <h3 style="color: var(--amber-300); margin-bottom: 1rem;">Final Reflection</h3>
+                    <div style="text-align: left;">
+                        <p style="margin-bottom: 0.5rem; font-weight: bold;">1. What was your biggest English victory in this course?</p>
+                        <input type="text" placeholder="e.g., I finally understand how to use 'such' correctly!" style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: none; margin-bottom: 1.5rem; font-family: inherit;">
+                        
+                        <p style="margin-bottom: 0.5rem; font-weight: bold;">2. What is your #1 goal for the next level?</p>
+                        <input type="text" placeholder="e.g., I want to improve my listening speed." style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); border: none; font-family: inherit;">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Injecting JavaScript Logic... -->
+    <script>
+        // === Tab Navigation ===
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // === Warm Up Scripts ===
+        const teleprompterScripts = [
+            "BREAKING: The weather reporter weathered the severe weather, reporting whether the weather would worsen on Wednesday.",
+            "LIVE: Foreign correspondent Fred frankly framed the fraudulent French financial fiasco on Friday.",
+            "SPORTS: Six slick smart sports sources shared secret soccer statistics on Sunday."
+        ];
+        
+        let tIndex = 0;
+        function runTeleprompter() {
+            const screen = document.getElementById('teleprompter-text');
+            // Clear the screen to reset the animation
+            screen.innerHTML = ''; 
+            
+            // Create a new scrolling element
+            const scrollDiv = document.createElement('div');
+            scrollDiv.className = 'scrolling-text';
+            scrollDiv.style.color = "var(--amber-400)";
+            scrollDiv.innerText = teleprompterScripts[tIndex];
+            
+            screen.appendChild(scrollDiv);
+            tIndex = (tIndex + 1) % teleprompterScripts.length;
+        }
+
+        const breakingScenarios = [
+            "A UFO has just landed in the parking lot of the local supermarket!",
+            "It is raining actual cats and dogs in the city center!",
+            "The mayor has just announced that pizza is now illegal!",
+            "A herd of elephants has escaped the zoo and is currently waiting in line at a coffee shop!",
+            "All the water in the ocean has suddenly turned into pink lemonade!"
+        ];
+
+        function generateBreakingNews() {
+            const screen = document.getElementById('breaking-news-scenario');
+            const random = breakingScenarios[Math.floor(Math.random() * breakingScenarios.length)];
+            screen.innerText = `"${random}"`;
+        }
+
+        // === Grand Review Logic (15 Items) ===
+        const reviewData = [
+            // Modals
+            { q: "1. The headline is everywhere. It [?] be true. (99% sure)", opts: ["must", "might", "can't"], a: "must" },
+            { textOnly: true }, // Spacer for layout logic if needed
+            { q: "2. The story [?] be real, but I need to verify it. (50% sure)", opts: ["must", "might", "can't"], a: "might" },
+            { textOnly: true },
+            { q: "3. Penguins in the desert? That [?] be true! (0% impossible)", opts: ["must", "might", "can't"], a: "can't" },
+            
+            // Modifiers
+            { q: "4. The article was [?] biased that I couldn't read it.", opts: ["so", "such", "too", "enough"], a: "so" },
+            { textOnly: true },
+            { q: "5. It is [?] a shocking story.", opts: ["so", "such", "too", "enough"], a: "such" },
+            { textOnly: true },
+            { q: "6. There is [?] much fake news online today.", opts: ["so", "such", "too", "enough"], a: "too" },
+            { textOnly: true },
+            { q: "7. He is not experienced [?] to write this report.", opts: ["so", "such", "too", "enough"], a: "enough" },
+            
+            // Vocab
+            { q: "8. A person who reads the news on TV is a news [?].", opts: ["anchor", "editor", "source"], a: "anchor" },
+            { textOnly: true },
+            { q: "9. To [?] a story means to check if it is true.", opts: ["manipulate", "verify", "broadcast"], a: "verify" },
+            { textOnly: true },
+            { q: "10. An article with a tricky title just to get clicks is called [?].", opts: ["clickbait", "objective", "current affairs"], a: "clickbait" },
+            { textOnly: true },
+            { q: "11. Someone who reports from a different country is a [?].", opts: ["foreign correspondent", "webmaster", "translator"], a: "foreign correspondent" },
+            { textOnly: true },
+            { q: "12. True, correct, without mistakes means [?].", opts: ["sensational", "biased", "accurate"], a: "accurate" },
+            { textOnly: true },
+            { q: "13. Unfair preference for one side is called [?].", opts: ["bias", "objective", "industry"], a: "bias" },
+            { textOnly: true },
+            { q: "14. A person who takes pictures for the news is a [?].", opts: ["reporter", "photojournalist", "editor"], a: "photojournalist" },
+            { textOnly: true },
+            { q: "15. Information that spreads but might not be true is a [?].", opts: ["rumor", "source", "headline"], a: "rumor" }
+        ];
+
+        // Filter out the textOnly spacers for rendering the 15 actual questions cleanly in CSS Grid
+        const actualQuestions = reviewData.filter(item => !item.textOnly);
+
+        const reviewContainer = document.getElementById('grand-review-quiz');
+        actualQuestions.forEach((item, index) => {
+            let optionsHTML = `<option value="">Select...</option>`;
+            item.opts.forEach(opt => optionsHTML += `<option value="${opt}">${opt}</option>`);
+            
+            reviewContainer.innerHTML += `
+                <div style="background: white; padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--slate-200); box-shadow: var(--shadow-sm);">
+                    <div style="margin-bottom: 0.5rem; font-weight: 500;">${item.q}</div>
+                    <select id="rev-q${index}" style="width: 100%; padding: 0.5rem; border: 1px solid var(--slate-300); border-radius: var(--radius-sm);">${optionsHTML}</select>
+                </div>
+            `;
+        });
+
+        function checkGrandReview() {
+            let score = 0;
+            actualQuestions.forEach((item, index) => {
+                const select = document.getElementById(`rev-q${index}`);
+                if (select.value === item.a) {
+                    select.style.borderColor = "var(--emerald-500)";
+                    select.style.backgroundColor = "var(--emerald-100)";
+                    score++;
+                } else {
+                    select.style.borderColor = "var(--coral-600)";
+                    select.style.backgroundColor = "var(--coral-100)";
+                }
+            });
+            const feedback = document.getElementById('review-feedback');
+            feedback.className = `feedback-banner ${score === 15 ? 'success' : 'error'}`;
+            feedback.innerHTML = `You scored ${score}/15. ${score === 15 ? 'Course Mastered! 🏆' : 'Check the red boxes and try again.'}`;
+        }
+    </script>
+</body>
+</html>
